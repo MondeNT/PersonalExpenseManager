@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Incomes</h2>
+<a href="{% url 'income_create' %}" class="btn btn-primary mb-3">Add New Income</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Source</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for income in incomes %}
+        <tr>
+            <td>{{ income.source }}</td>
+            <td>R{{ income.amount|floatformat:2 }}</td>
+            <td>{{ income.date }}</td>
+            <td>
+                <a href="{% url 'income_edit' income.id %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'income_delete' income.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

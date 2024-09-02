@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Expenses</h2>
+<a href="{% url 'expense_create' %}" class="btn btn-primary mb-3">Add New Expense</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Receipt</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense.category.name }}</td>
+            <td>R{{ expense.amount|floatformat:2 }}</td>
+            <td>{{ expense.date }}</td>
+            <td>{{ expense.description }}</td>
+            <td>
+                {% if expense.receipt %}
+                <img src="{{ expense.receipt.url }}" alt="Receipt" width="50">
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'expense_edit' expense.id %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'expense_delete' expense.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

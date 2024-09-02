@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Hero Section -->
+    <div class="text-center bg-light p-5 rounded shadow-sm">
+        <h1 class="display-4">Welcome to Expense Tracker</h1>
+        <p class="lead">Track your expenses, manage your budget, and gain financial insights.</p>
+        <a class="btn btn-primary btn-lg mt-3" href="{% url 'expense_list' %}" role="button">Read More</a>
+    </div>
+
+    <!-- Navigation Sections -->
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <!-- Summary Section -->
+            <div class="col-md-8 mx-auto">
+                <h2 class="text-center mb-4">Expense Report</h2>
+                
+                <p class="text-center {{ budget_class }} mb-4" style="font-size: 1.25rem;">
+                    {{ budget_status }}
+                </p>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card text-white bg-success mb-3">
+                            <div class="card-header">Total Income</div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ total_income|floatformat:2 }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card text-white bg-danger mb-3">
+                            <div class="card-header">Total Expenses</div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ total_expenses }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-left mt-5">Detailed Expenses</h3>
+                <div class="table-responsive">
+                    <table class="table table-striped mt-3">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for expense in expenses %}
+                            <tr>
+                                <td>{{ expense.date }}</td>
+                                <td>{{ expense.category }}</td>
+                                <td>R{{ expense.amount|floatformat:2 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Expenses Section -->
+        <div class="row mt-5">
+            <div class="col-md-12 mb-4">
+                <div class="row shadow-sm rounded overflow-hidden">
+                    <div class="col-md-6 order-md-1 order-2 p-0">
+                        <img src="{% static 'images/customer.jpg' %}" class="img-fluid w-100 h-100" alt="Manage Expenses">
+                    </div>
+                    <div class="col-md-6 d-flex flex-column justify-content-center order-md-2 order-1 p-4">
+                        <h5 class="card-title">Manage Expenses</h5>
+                        <p class="card-text">Keep track of all your expenditures. Add, edit, or delete expenses easily to stay on top of your finances.</p>
+                        <a href="{% url 'expense_list' %}" class="btn btn-primary">View Expenses</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Incomes Section -->
+            <div class="col-md-12 mb-4">
+                <div class="row shadow-sm rounded overflow-hidden">
+                    <div class="col-md-6 order-md-2 order-1 p-0">
+                        <img src="{% static 'images/Money.jpg' %}" class="img-fluid w-100 h-100" alt="Track Incomes">
+                    </div>
+                    <div class="col-md-6 d-flex flex-column justify-content-center order-md-1 order-2 p-4">
+                        <h5 class="card-title">Track Incomes</h5>
+                        <p class="card-text">Record your sources of income to get a complete picture of your financial inflows and outflows.</p>
+                        <a href="{% url 'income_list' %}" class="btn btn-success">View Incomes</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budgeting Section -->
+            <div class="col-md-12 mb-4">
+                <div class="row shadow-sm rounded overflow-hidden">
+                    <div class="col-md-6 order-md-1 order-2 p-0">
+                        <img src="{% static 'images/Budget.jpg' %}" class="img-fluid w-100 h-100" alt="Set Budgets">
+                    </div>
+                    <div class="col-md-6 d-flex flex-column justify-content-center order-md-2 order-1 p-4">
+                        <h5 class="card-title">Set Budgets</h5>
+                        <p class="card-text">Establish budgets for different categories and monitor your spending to stay within your financial goals.</p>
+                        <a href="{% url 'budget_list' %}" class="btn btn-warning">Manage Budgets</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Section -->
+            <div class="col-md-12 mb-4">
+                <div class="row shadow-sm rounded overflow-hidden">
+                    <div class="col-md-6 order-md-2 order-1 p-0">
+                        <img src="{% static 'images/Report.jpg' %}" class="img-fluid w-100 h-100" alt="Generate Reports">
+                    </div>
+                    <div class="col-md-6 d-flex flex-column justify-content-center order-md-1 order-2 p-4">
+                        <h5 class="card-title">Generate Reports</h5>
+                        <p class="card-text">Create detailed reports to analyze your spending patterns and make informed financial decisions.</p>
+                        <a href="{% url 'report' %}" class="btn btn-info">View Reports</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

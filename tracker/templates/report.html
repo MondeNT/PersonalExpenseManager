@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid mt-7">
+    <h2 class="text-center mb-4">Expense Report - {{ now|date:"F Y" }}</h2>
+    
+    <!-- Print Button -->
+    <div class="text-center mb-4">
+        <button class="btn btn-primary" onclick="window.print()">Print Report</button>
+    </div>
+    
+    <!-- Budget Status Message -->
+    <p class="text-center {{ budget_class }} mb-4" style="font-size: 1.25rem;">
+        {{ budget_status }}
+    </p>
+    
+    <!-- Summary Section -->
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Total Income</div>
+                <div class="card-body">
+                    <h4 class="card-title">R{{ total_income|floatformat:2 }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header">Total Expenses</div>
+                <div class="card-body">
+                    <h4 class="card-title">R{{ total_expenses|floatformat:2 }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Financial Ratios -->
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card bg-light mb-3">
+                <div class="card-header">Savings Rate</div>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        {% if savings_rate is not None %}
+                            {{ savings_rate|floatformat:2 }}%
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </h4>
+                    <p class="card-text">This ratio shows how much of your income you're saving.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-light mb-3">
+                <div class="card-header">Expense to Income Ratio</div>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        {% if expense_to_income_ratio is not None %}
+                            {{ expense_to_income_ratio|floatformat:2 }}%
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </h4>
+                    <p class="card-text">This ratio shows what percentage of your income is spent.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-light mb-3">
+                <div class="card-header">Net Income</div>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        R{{ net_income|floatformat:2 }}
+                    </h4>
+                    <p class="card-text">This is the amount left after subtracting your total expenses from your total income.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card bg-light mb-3">
+                <div class="card-header">Expense Distribution</div>
+                <div class="card-body">
+                    <div id="expenseDistributionChart"></div>
+                    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+                    <script>
+                        var plotData = JSON.parse('{{ plot_div|escapejs }}');
+                        Plotly.newPlot('expenseDistributionChart', plotData.data, plotData.layout);
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent High-Value Transactions -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card bg-light mb-3">
+                <div class="card-header">Recent High-Value Transactions</div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for transaction in high_value_transactions %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ transaction.date }} - {{ transaction.description }}
+                                <span class="badge bg-primary rounded-pill">R{{ transaction.amount|floatformat:2 }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Financial Tips Section -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card bg-light mb-3">
+                <div class="card-header">Financial Tips</div>
+                <div class="card-body">
+                    <p class="card-text">“Don’t save what is left after spending; spend what is left after saving.” – Warren Buffett</p>
+                    <p class="card-text">"The best investment you can make is an investment in yourself." – Warren Buffett</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

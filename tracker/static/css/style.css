@@ -1,0 +1,138 @@
+/* General Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: white;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1; /* Ensure body content stays below the navbar */
+}
+
+/* Custom styling for navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Ensures brand and nav items are at opposite ends */
+    align-items: center; /* Centers items vertically */
+}
+
+.navbar-brand {
+    flex: 1; /* Allows the brand to take up necessary space */
+    color: #ffffff; /* Ensures the brand text is white by default */
+}
+
+.navbar-brand:hover {
+    color: #dc3545; /* Changes the text color to red on hover */
+    transition: color 0.3s ease; /* Adds a smooth transition effect */
+}
+
+.navbar-collapse {
+    flex: 1; /* Allows the navbar items to take up necessary space */
+    justify-content: flex-end; /* Ensures nav items are aligned to the right */
+}
+
+/* Optional: Adjust the spacing of nav links */
+.navbar-nav .nav-link {
+    padding-right: 50px;
+}
+
+.navbar-nav {
+    flex-direction: row;
+}
+
+/* Card Styling */
+.card {
+    margin-top: 35px; /* Adjust as needed */
+    border: none;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow for emphasis */
+    padding: 20px; /* Added padding for a more comfortable spacing */
+    max-width: 100%; /* Ensure card takes up full width */
+}
+
+.card-title {
+    font-weight: bold;
+    color: #343a40;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* Form Styling */
+form {
+    margin-bottom: 20px;
+}
+
+input.form-control, select.form-control, textarea.form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* Centering the Card */
+.d-flex {
+    margin-top: -50px; /* Adjust as needed */
+}
+
+/* Text Centering */
+.text-center {
+    text-align: center;
+}
+
+/* Spacing Adjustments */
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Container Styling */
+.container {
+    max-width: 1500px; /* Larger width for a wider layout */
+    background-color: #ffffff; /* White background for the container */
+    padding: 30px; /* Increased padding for more spacing */
+    border-radius: 10px; /* Rounded corners for a softer look */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.card-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-img-top {
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    height: 250px; /* Adjust height for larger image */
+    object-fit: cover;
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 10px;
+}
+
+

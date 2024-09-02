@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Budgets for {{ month }}/{{ year }}</h2>
+<p class="text-center {{ budget_class }} mb-4" style="font-size: 1.25rem;">
+    {{ budget_status }}
+</p>
+<!-- Button to Add New Budget -->
+<a href="{% url 'budget_create' %}" class="btn btn-primary mb-3">Add New Budget</a>
+
+<!-- Display Budgets in Table Format -->
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Limit (R)</th>
+            <th>Recurring</th>
+            <th>Notes</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for budget in budgets %}
+        <tr>
+            <td>{{ budget.category }}</td>
+            <td>{{ budget.limit|floatformat:2 }}</td>
+            <td>{{ budget.recurring|yesno:"Yes,No" }}</td>
+            <td>{{ budget.notes }}</td>
+            <td>
+                <a href="{% url 'budget_edit' budget.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'budget_delete' budget.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No budgets found for this period.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
